@@ -11,13 +11,24 @@ import {
 } from "react-native"
 
 export default class LoginForm extends Component {
+    
+    constructor (props) {
+        super(props);
+        this.state = {
+            emailInput : 'rgba(255,255,255,0.2)',
+            passInput : 'rgba(255,255,255,0.2)'
+        };
+    }
+
     render() {
         return ( 
             <View style={styles.container}>
                 <StatusBar barStyle="light-content"></StatusBar>
                 <View style={styles.buttonContainer}>
-                    <TextInput 
-                        placeholder="Username or Email"
+                    <TextInput
+                        onFocus={ () => this.onFocus(true) }
+                        onBlur={ () => this.onBlur(true) }
+                        placeholder="Email"
                         placeholderTextColor = "rgba(255,255,255,0.5)"
                         returnKeyType="next"
                         style={styles.input}
@@ -26,10 +37,12 @@ export default class LoginForm extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         /> 
-                    <View style={styles.inputUnFocus}></View>
+                    <View style={{backgroundColor : this.state.emailInput , height: 2}}></View>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <TextInput 
+                    <TextInput
+                        onFocus={ () => this.onFocus(false) }
+                        onBlur={ () => this.onBlur(false) }
                         placeholder="Passowrd"
                         placeholderTextColor = "rgba(255,255,255,0.5)"
                         secureTextEntry
@@ -37,14 +50,36 @@ export default class LoginForm extends Component {
                         style={styles.input}
                         ref={(input) => this.passwordInput = input}
                         /> 
-                    <View style={styles.inputUnFocus}></View>
+                    <View style={{backgroundColor : this.state.passInput , height: 2}}></View>
                 </View>
             </View>
         );
     }
 
-    onLogin(){
-        // Alert.alert('Button has been pressed!');
+    onFocus(input) {
+        if(input){
+            this.setState({
+                emailInput : 'rgba(255,255,255,0.8)'
+            })
+        }else{
+            this.setState({
+                passInput : 'rgba(255,255,255,0.8)'
+            })
+        }
+        
+    }
+
+    onBlur(input) {
+        if(input){
+            this.setState({
+                emailInput : 'rgba(255,255,255,0.2)'
+            })
+        }else{
+            this.setState({
+                passInput : 'rgba(255,255,255,0.2)'
+            })
+        }
+            
     }
 }
 
@@ -61,12 +96,16 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-    
+        paddingLeft : 20,
+        paddingRight: 20
     },
 
     inputUnFocus : {
-        backgroundColor : 'rgba(255,255,255,0.2)',
-        height: 2
+        backgroundColor : 'rgba(255,255,255,0.2)'
+    },
+
+    inputFocus : {
+        backgroundColor : 'rgba(255,255,255,0.8)'
     }
 
 });

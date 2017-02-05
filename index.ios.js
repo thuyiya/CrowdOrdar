@@ -12,30 +12,6 @@ import Splash from './Splash';
 import Login from './src/componets/Login';
 import Home from './src/componets/Home';
 
-var NavigatorBarRouteMapper = {
-  LeftButton: (route, navigator, index) => {
-    return (
-      <TouchableOpacity onPress={() => {
-          if(index > 0){
-            navigator.pop();
-          }
-        }}>  
-        <Text style={styles.navButtonText}>Back</Text>
-      </TouchableOpacity>
-    )
-  },
-
-  RightButton: (route, navigator, index) => {
-    return null;
-  },
-
-  Title : (route, navigator, index) => {
-    return (
-      <Text style={styles.title} > { route.name } </Text>
-    )
-  } 
-}
-
 export default class testpage extends Component {
 
   renderScene(route, navigator){
@@ -62,11 +38,6 @@ export default class testpage extends Component {
           }
           return Navigator.SceneConfigs.FloatFromRight
         }}
-
-        navigationBar = {
-          <Navigator.NavigationBar
-            routeMapper = {NavigatorBarRouteMapper}/>
-        }
         />
     );
   }
@@ -76,7 +47,8 @@ const styles = StyleSheet.create({
   navButtonText : {
     marginTop : 10,
     marginLeft : 20,
-    color : '#007AFF'
+    fontWeight: '300',
+    color : '#ffffff'
   },
   title : {
     marginTop : 10,

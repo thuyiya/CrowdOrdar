@@ -11,13 +11,16 @@ import {
 
 import LoginForm from './LoginForm';
 
+import RegForm from './RegForm';
+
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state={
-            name : 'Login'
+            toggle : true
         }
     }
+
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -25,10 +28,11 @@ export default class Login extends Component {
                     <Image 
                     style={styles.logo}
                     source={require('../img/co_logo.png')}/>
-                    <Text style={styles.title}>What ever you wish...</Text>
+                    <Text style={styles.title}>What ever you wish</Text>
                 </View>
                 <View style={styles.formContainer}>
-                    <LoginForm/>
+                    { this.state.toggle ?  <LoginForm/> :  <RegForm/> }
+                   
                 </View>
                 <View style={styles.button}>
                     <TouchableOpacity onPress={(this.onLogin.bind(this))} style={styles.buttonContainer}>
@@ -45,7 +49,7 @@ export default class Login extends Component {
     }
 
     onLogin(){
-        
+        this.setState({toggle: !this.state.toggle});
     }
 
     home(){
@@ -71,15 +75,15 @@ const styles = StyleSheet.create({
     },
 
     button : {
-        paddingLeft: 20,
-        paddingRight: 20,
-        paddingBottom : 30
+        paddingLeft: 140,
+        paddingRight: 140,
+        paddingBottom : 40
     },
 
     buttonContainer: {
         // backgroundColor : '#2980b9',
-        padding : 10,
-        paddingVertical : 15
+        paddingVertical : 15,    
+        alignItems : 'center'
     },
 
     buttonText : {
